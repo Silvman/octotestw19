@@ -21,6 +21,10 @@ export default class DefaultPage {
 		browser.url('/bundles/page.qa.html')
 	}
 
+	logout() {
+		this.page.click("#PH_logoutLink");
+	}
+
 	waitForUrl(value, timeout, revert) {
 		let url, actual;
 		try {
