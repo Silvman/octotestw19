@@ -23,6 +23,37 @@ class SearchPanelSteps extends DefaultSteps {
         this.page.waitForUrl(`https://octavius.mail.ru/search/?q_query=${encodeURIComponent(request)}`)
     }
 
+    clickOnClearButton() {
+        this.page.clickOnClearButton();
+    }
+
+    selectSearchArea(area = 'to') {
+        this.page.clickOnSearchAreaButton();
+        let n = 0;
+        switch (area) {
+            case 'from': {
+                n = 1;
+                break;
+            }
+
+            case 'to': {
+                n = 2;
+                break;
+            }
+
+            case 'theme': {
+                n = 3;
+                break;
+            }
+
+            default: {
+                n = 4;
+            }
+        }
+
+        this.page.clickOnAreaListElement(n);
+    }
+
     checkIfExpectedLetterExists(expected) {
         assert.strictEqual(letters.hasLetterBySubject(expected), true);
     }

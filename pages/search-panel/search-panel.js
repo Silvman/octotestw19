@@ -13,6 +13,9 @@ class SearchPanelPage extends DefaultPage {
         const search_input_container = `${container_column_active} .search-panel__layer`;  // блок с полем и кнопкой посика
         const search_input = `${search_input_container} input`;                     // поле поискового запроса
         const search_button = `${search_input_container} div span:nth-child(3)`;    // кнопка "Найти"
+        const search_area_button = `//*[contains(@class, "search-panel__layer")]//span[following-sibling::span]/div`; // блок "раздела" поиска: "От", "Кому" итд...
+        const search_area_list = `//body/div[following-sibling::div[@class="contextmenu"]][last()]/div/span`; // список "раздела" поиска: "От", "Кому" итд... (в нем spanы с названиями разделов с эвенами [0] от [1] кому [2] тема)
+        const clear_button = `//*[contains(@class, "search-panel__layer")]//span[preceding-sibling::span[last()]/div][preceding-sibling::span[last()-1]]`; // крестик!
 
         return {
             container,
@@ -22,11 +25,23 @@ class SearchPanelPage extends DefaultPage {
             search_input_container,
             search_input,
             search_button,
+            search_area_button,
+            search_area_list,
+            search_area_list_elem: (i) => {
+                return `${search_area_list}/span[${i}]`;
+            },
+            clear_button,
         }
     }
 
     clickOnSearchField() {
         const locator = this.locators.search_panel_button;
+        this.page.waitForVisible(locator);
+        this.page.click(locator);
+    }
+
+    clickOnClearButton() {
+        const locator = this.locators.clear_button;
         this.page.waitForVisible(locator);
         this.page.click(locator);
     }
@@ -50,6 +65,19 @@ class SearchPanelPage extends DefaultPage {
         this.page.waitForVisible(locator);
         this.page.click(locator);
     }
+
+    clickOnSearchAreaButton() {
+        const locator = this.locators.search_area_button;
+        this.page.waitForVisible(locator);
+        this.page.click(locator);
+    }
+
+    clickOnAreaListElement(i) {
+        const locator = this.locators.search_area_list;
+        this.page.waitForVisible(locator);
+        this.page.click(this.locators.search_area_list_elem(i));
+    }
+
 
 }
 
