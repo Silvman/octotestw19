@@ -6,13 +6,13 @@ class Layout extends DefaultPage {
 	}
 
 	get locators() {
-		const container = '[data-qa-id="application"]';
-		const sideBar = container + ' [data-qa-id="main"] [data-qa-id="sidebar"]';
-		const dropDown = sideBar + ' [data-qa-id="dropdown-settings"]';
-		const dropDownButton = dropDown + ' [data-qa-id="dropdown-button"]';
-		const dropDownList = dropDown + ' [data-qa-id="dropdown-list"]';
-		const layoutSwitch = dropDownList + ' [data-qa-id="layout-toggle"]';
-		const paneCheckbox = layoutSwitch + ' .b-checkbox';
+		const container = `.application`; 								// приложение
+		const sideBar = `${container} .sidebar`; 						// сайдбар
+		const dropDown = `${sideBar} .settings .dropdown`; 				// блок отвечающий за кнопку настроек и соответствующий ей выпадающий список
+		const dropDownButton = `${dropDown} .button2`; 					// кнопка настроек
+		const dropDownList = `${dropDown} .dropdown__menu .list`; 		// блок выпадающего списка
+		const layoutSwitch = `${dropDownList} .list-item:nth-child(3)`; // элемент списка, в котором лежит чекбокс, переключающий режим отображения писем (является третьим "потомком" выпадающего списка)
+		const paneCheckbox = `${layoutSwitch} .b-checkbox`; 			// чекбокс
 		return {
 			container,
 			sideBar,
@@ -34,7 +34,7 @@ class Layout extends DefaultPage {
 		this.toggleDropdownButton();
 		this.page.waitForVisible(this.locators.dropDownList);
 		
-		const is3pane = this.hasClass(this.locators.paneCheckbox, 'b-checkbox_checked')
+		const is3pane = this.hasClass(this.locators.paneCheckbox, `b-checkbox_checked`);
 
 		switch (pane) {
 			case 2:

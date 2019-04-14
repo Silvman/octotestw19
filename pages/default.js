@@ -17,12 +17,9 @@ export default class DefaultPage {
 		return browser;
 	}
 
-	redirectToQa() {
-		browser.url('/bundles/page.qa.html')
-	}
-
 	logout() {
-		this.page.click("#PH_logoutLink");
+		this.page.waitForVisible('#PH_logoutLink');
+		this.page.click('#PH_logoutLink');
 	}
 
 	waitForUrl(value, timeout, revert) {

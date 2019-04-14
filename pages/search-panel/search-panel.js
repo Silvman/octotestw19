@@ -6,16 +6,18 @@ class SearchPanelPage extends DefaultPage {
     }
 
     get locators() {
-        const container = `[data-qa-id="search-panel"]`;
-        const container_active = `[data-qa-id="search-panel:active"]`;
-        const search_panel_button = container + " .search-panel-button";
-        const search_input_container = container_active + ` [data-test-id="search-input-container"]`;
-        const search_input = search_input_container + ` input`;
-        const search_button = `[data-test-id="search-button"]`;
+        const container = `.search-panel`;                                          // блок с поиском
+        const container_column = `${container} .search-panel__column`;  // поле поиска
+        const container_column_active = `${container} .search-panel__column_active`;       // "развернутое" поле посика
+        const search_panel_button = `${container} .search-panel-button`;            // "кнопка", разворачивающая поле поиска
+        const search_input_container = `${container_column_active} .search-panel__layer`;  // блок с полем и кнопкой посика
+        const search_input = `${search_input_container} input`;                     // поле поискового запроса
+        const search_button = `${search_input_container} div span:nth-child(3)`;    // кнопка "Найти"
 
         return {
             container,
-            container_active,
+            container_column_active,
+            container_column,
             search_panel_button,
             search_input_container,
             search_input,
@@ -29,13 +31,23 @@ class SearchPanelPage extends DefaultPage {
         this.page.click(locator);
     }
 
+    isSearchInputExpanded() {
+        return super.hasClass(this.locators.container_column, `search-panel__column_active`);
+    }
+
     fillSearchInput(request) {
         const locator = this.locators.search_input;
+        this.page.waitForVisible(locator);
         this.page.setValue(locator, request);
+    }
+
+    getSearchRequestValue() {
+        return browser.getValue(this.locators.search_input);
     }
 
     sendSearchRequest() {
         const locator = this.locators.search_button;
+        this.page.waitForVisible(locator);
         this.page.click(locator);
     }
 

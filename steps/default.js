@@ -10,10 +10,10 @@ export default class DefaultSteps {
 
 	logout() {
 		this.page.logout();
-		this.page.waitForUrl('https://account.mail.ru/login?success_redirect=https://octavius.mail.ru&allow_external=1');
+		this.page.waitForUrl(`https://account.mail.ru/login?success_redirect=https://octavius.mail.ru&allow_external=1`);
 	}
 
-	redirectToQa() {
-		this.open('/bundles/page.qa.html');
+	redirectToOctavius() {
+		this.open(`https://octavius.mail.ru`);
 	}
 }

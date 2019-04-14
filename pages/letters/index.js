@@ -4,16 +4,14 @@ class LettersPage extends DefaultPage {
 	constructor() {
 		super('letters')
 	}
-
 	get locators () {
-		const container = '[data-qa-id="dataset-letters"]';
-
 		return {
-			container,
 			letterBySubject: (subject) => {
-				// subject = subject === '' ? '<Без темы>' : subject.replace('"', '\\"');
+				return `//a[div/a/div/div/div[@title="${subject}"]]/div[2]/a`;
+			},
 
-				return `${this.locators.container} [data-qa-id="letter-item:subject:${subject}"]`;
+			letterTitleBlockBySubject: (subject) => {
+				return `//div[@title="${subject}"]`;
 			}
 		}
 	}
@@ -27,8 +25,7 @@ class LettersPage extends DefaultPage {
 	 */
 	hasLetterBySubject (subject, reverse = false) {
 		try {
-			this.page.waitForVisible(this.locators.letterBySubject(subject), null, reverse);
-
+			this.page.waitForVisible(this.locators.letterTitleBlockBySubject(subject), null, reverse);
 			return true;
 		} catch (err) {
 			return false;
