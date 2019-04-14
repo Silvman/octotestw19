@@ -1,7 +1,6 @@
 import main from '../../steps/main';
 import layout from '../../steps/layout'
-import search from '../../steps/serach-panel/search-panel';
-var assert = require('assert');
+import search from '../../steps/serach-panel';
 
 const user = process.env.LOGIN;
 const password = process.env.PASSWORD;
