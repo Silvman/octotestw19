@@ -1,6 +1,6 @@
 import main from '../../steps/main';
 import layout from '../../steps/layout'
-import search from '../../steps/serach-panel';
+import search from '../../steps/search-panel';
 
 const user = process.env.LOGIN;
 const password = process.env.PASSWORD;
