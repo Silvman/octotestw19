@@ -30,6 +30,9 @@ class SearchPanelPage extends DefaultPage {
         // блок "раздела" поиска: "От", "Кому" итд...
         const search_area_button = `//*[contains(@class, "search-panel__layer")]//span[following-sibling::span]/div`;
 
+        // блок "раздела" поиска: текст запроса в сером прямоугольнике
+        const search_area_request_text = `//*[contains(@class, "search-panel__layer")]//span[following-sibling::span]/span/span/span[2]`;
+
         // список "раздела" поиска: "От", "Кому" итд... (в нем spanы с названиями разделов с эвенами [0] от [1] кому [2] тема)
         const search_area_list = `//body/div[following-sibling::div[@class="contextmenu"]][last()]/div/span`;
 
@@ -52,8 +55,10 @@ class SearchPanelPage extends DefaultPage {
             search_button,
             search_area_button,
             search_area_list,
+            search_area_request_text,
             clear_button,
             drop_search_button,
+            helper_elements,
             search_area_list_elem: (i) => {
                 return `${search_area_list}/span[${i}]`;
             },
@@ -84,7 +89,7 @@ class SearchPanelPage extends DefaultPage {
      */
     clickOnSearchField() {
         const locator = this.locators.search_panel_button;
-        this.page.waitForVisible(locator);
+        this.page.waitForVisible(locator, 2000);
         this.page.click(locator);
     }
 
@@ -134,6 +139,18 @@ class SearchPanelPage extends DefaultPage {
         const locator = this.locators.search_area_list;
         this.page.waitForVisible(locator);
         this.page.click(this.locators.search_area_list_elem(i));
+    }
+
+
+    getAreaRequestText() {
+        const locator = this.locators.search_area_request_text;
+        this.page.waitForVisible(locator);
+        return this.page.getText(locator);
+    }
+
+
+    pressEnter() {
+        browser.keys('\uE007'); // Enter
     }
 
     /**
@@ -196,6 +213,16 @@ class SearchPanelPage extends DefaultPage {
         const locator = this.locators.search_button;
         this.page.waitForVisible(locator);
         this.page.click(locator);
+    }
+
+    hasHelpersElements() {
+        const locator = this.locators.helper_elements;
+        try {
+            this.page.waitForVisible(locator);
+            return  true;
+        } catch (err) {
+            return false;
+        }
     }
 }
 

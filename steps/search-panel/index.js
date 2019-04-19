@@ -81,7 +81,14 @@ class SearchPanelSteps extends DefaultSteps {
      */
     sendSearchRequest(request) {
         this.page.clickOnSearchButton();
-        this.page.waitForUrl(`https://octavius.mail.ru/search/?q_query=${encodeURIComponent(request)}`)
+        this.page.waitForUrl(`https://octavius.mail.ru/search/?q_query=${encodeURIComponent(request)}`);
+    }
+
+    sendSearchRequestByEnter(request) {
+        this.page.pressEnter();
+        if (request !== undefined) {
+            this.page.waitForUrl(`https://octavius.mail.ru/search/?q_query=${encodeURIComponent(request)}`);
+        }
     }
 
     /**
@@ -130,6 +137,10 @@ class SearchPanelSteps extends DefaultSteps {
         this.page.clickOnAreaListElement(n);
     }
 
+    checkAreaRequestText(request) {
+        assert.strictEqual(this.page.getAreaRequestText(), request);
+    }
+
     /**
      * Check if last history filter record is consistent to last request
      *
@@ -173,6 +184,10 @@ class SearchPanelSteps extends DefaultSteps {
      */
     checkIfNoUnexpectedLetter(unexpected) {
         assert.strictEqual(letters.hasLetterBySubject(unexpected, true), true);
+    }
+
+    checkFilterListExists() {
+        assert.strictEqual(this.page.hasHelpersElements(), true);
     }
 }
 
