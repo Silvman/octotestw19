@@ -1,11 +1,31 @@
 import DefaultSteps from '../default';
 import search from '../../pages/search-panel';
 import letters from '../../pages/letters';
+
 var assert = require('assert');
+
 
 class SearchPanelSteps extends DefaultSteps {
     constructor() {
         super(search);
+
+        this.filterPositions = {
+            "unread": 0,
+            "flag": 1,
+            "attachment": 2,
+        };
+
+        this.filterNames = {
+            "unread": "непрочитанные",
+            "flag": "с флагом",
+            "attachment": "с вложениями",
+        };
+
+        this.searchAreaPositions = {
+            "from": 1,
+            "to": 2,
+            "theme": 3,
+        };
     }
 
     /**
@@ -13,7 +33,7 @@ class SearchPanelSteps extends DefaultSteps {
      */
     clickOnSearchField() {
         this.page.clickOnSearchField();
-        assert.strictEqual(this.page.isSearchInputExpanded(), true, `search input should be expanded`);
+        assert.ok(this.page.isSearchInputExpanded(), `search input should be expanded`);
     }
 
     /**
@@ -23,29 +43,9 @@ class SearchPanelSteps extends DefaultSteps {
      */
     selectFilter(filter = 'flag') {
         this.page.clickOnSearchInput();
-        let n = 0;
-        switch (filter) {
-            case 'unread': {
-                n = 0;
-                break;
-            }
 
-            case 'flag': {
-                n = 1;
-                break;
-            }
-
-            case 'attachment': {
-                n = 2;
-                break;
-            }
-
-            default: {
-                n = 1;
-            }
-        }
-
-        this.page.clickOnFilter(n);
+        const pos = this.filterPositions[filter];
+        this.page.clickOnFilter(pos);
     }
 
     /**
@@ -112,29 +112,9 @@ class SearchPanelSteps extends DefaultSteps {
      */
     selectSearchArea(area = 'to') {
         this.page.clickOnSearchAreaButton();
-        let n = 0;
-        switch (area) {
-            case 'from': {
-                n = 1;
-                break;
-            }
 
-            case 'to': {
-                n = 2;
-                break;
-            }
-
-            case 'theme': {
-                n = 3;
-                break;
-            }
-
-            default: {
-                n = 4;
-            }
-        }
-
-        this.page.clickOnAreaListElement(n);
+        const pos = this.searchAreaPositions[area];
+        this.page.clickOnAreaListElement(pos);
     }
 
     checkAreaRequestText(request) {
@@ -147,24 +127,7 @@ class SearchPanelSteps extends DefaultSteps {
      * @param filter {String} - last filter name
      */
     checkIfSearchRequestFilterSaved(filter = 'flag') {
-        let name_filter = '';
-        switch (filter) {
-            case 'unread': {
-                name_filter = 'непрочитанные';
-                break;
-            }
-
-            case 'flag': {
-                name_filter = 'с флагом';
-                break;
-            }
-
-            case 'attachment': {
-                name_filter = 'с вложениями';
-                break;
-            }
-        }
-
+        const name_filter = this.filterNames[filter];
         assert.strictEqual(this.page.getHistoryElementFilterText(0), name_filter);
     }
 
@@ -174,7 +137,7 @@ class SearchPanelSteps extends DefaultSteps {
      * @param expected {String} - title of mail
      */
     checkIfExpectedLetterExists(expected) {
-        assert.strictEqual(letters.hasLetterBySubject(expected), true);
+        assert.ok(letters.hasLetterBySubject(expected));
     }
 
     /**
@@ -183,11 +146,11 @@ class SearchPanelSteps extends DefaultSteps {
      * @param expected {String} - title of mail
      */
     checkIfNoUnexpectedLetter(unexpected) {
-        assert.strictEqual(letters.hasLetterBySubject(unexpected, true), true);
+        assert.ok(letters.hasLetterBySubject(unexpected, true));
     }
 
     checkFilterListExists() {
-        assert.strictEqual(this.page.hasHelpersElements(), true);
+        assert.ok(this.page.hasHelpersElements());
     }
 }
 

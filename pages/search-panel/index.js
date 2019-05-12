@@ -34,7 +34,7 @@ class SearchPanelPage extends DefaultPage {
         const search_area_request_text = `//*[contains(@class, "search-panel__layer")]//span[following-sibling::span]/span/span/span[2]`;
 
         // список "раздела" поиска: "От", "Кому" итд... (в нем spanы с названиями разделов с эвенами [0] от [1] кому [2] тема)
-        const search_area_list = `//body/div[following-sibling::div[@class="contextmenu"]][last()]/div/span`;
+        const search_area_list = `//*[@class="tooltip"]/following-sibling::div[1]/div/span`;
 
         // крестик!
         const clear_button = `//*[contains(@class, "search-panel__layer")]//span[preceding-sibling::span[last()]/div][preceding-sibling::span[last()-1]]`;

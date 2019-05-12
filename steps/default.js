@@ -10,7 +10,7 @@ export default class DefaultSteps {
 
 	logout() {
 		this.page.logout();
-		this.page.waitForUrl(`https://account.mail.ru/login?success_redirect=https://octavius.mail.ru&allow_external=1`);
+		this.page.waitForUrl(`https://e.mail.ru/login?page=https%3A%2F%2Foctavius.mail.ru%2Finbox&allow_external=1&from=octavius`);
 	}
 
 	redirectToOctavius() {
