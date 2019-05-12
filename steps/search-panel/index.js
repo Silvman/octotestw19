@@ -13,6 +13,7 @@ class SearchPanelSteps extends DefaultSteps {
             "unread": 0,
             "flag": 1,
             "attachment": 2,
+            "orders": 8,
         };
 
         this.filterNames = {
@@ -26,6 +27,10 @@ class SearchPanelSteps extends DefaultSteps {
             "to": 2,
             "theme": 3,
         };
+
+        this.filterSecondPositions = {
+            "finance": 2,
+        }
     }
 
     /**
@@ -71,7 +76,6 @@ class SearchPanelSteps extends DefaultSteps {
      */
     fillSearchInput(request) {
         this.page.fillSearchInput(request);
-        assert.strictEqual(this.page.getSearchRequestValue(), request, `actual value must match the requested value`);
     }
 
     /**
@@ -152,6 +156,28 @@ class SearchPanelSteps extends DefaultSteps {
     checkFilterListExists() {
         assert.ok(this.page.hasHelpersElements());
     }
+
+    checkIfFilterDisplay() {
+        assert.ok(this.page.hasFilterInInput());
+    }
+
+    checkIfFilterReplace() {
+        assert.strictEqual(this.page.getCountOfFilters(), 1);
+    }
+
+    selectSecondFilter(filter = "finance") {
+        this.page.clickOnSearchAreaButton();
+        this.page.clickOnAreaListElement(this.filterSecondPositions[filter]);
+    }
+
+    checkIfEmptyPageBlocksExists() {
+        assert.ok(this.page.hasEmptyPageBlocks());
+    }
+
+    checkIfRequestFiltred(filtredRequest) {
+        assert.strictEqual(this.page.getAreaRequestHTML(), filtredRequest);
+    }
+
 }
 
 export default new SearchPanelSteps();

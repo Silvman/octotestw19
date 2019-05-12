@@ -21,6 +21,9 @@ class SearchPanelPage extends DefaultPage {
         // блок с полем и кнопкой посика
         const search_input_container = `${container_column_active} .search-panel__layer`;
 
+        // фильтры поиска
+        const search_filter = `//*[contains(@class, "search-panel__layer")]/div/div[1]/span[1]/span[span]`;
+
         // поле поискового запроса
         const search_input = `${search_input_container} input`;
 
@@ -45,12 +48,19 @@ class SearchPanelPage extends DefaultPage {
         // "Сбросить поиск"
         const drop_search_button = `//*[contains(@class, "search-panel__left-col")]//*[contains(@class, " button2")]`;
 
+        const empty_search_block = `.octopus`;
+
+        const empty_search_block_image = `${empty_search_block} .octopus__icon`;
+
+        const empty_search_block_text = `${empty_search_block} .octopus__text`;
+
         return {
             container,
             container_column_active,
             container_column,
             search_panel_button,
             search_input_container,
+            search_filter,
             search_input,
             search_button,
             search_area_button,
@@ -70,6 +80,9 @@ class SearchPanelPage extends DefaultPage {
             history_elem_filter: (i) => {
                 return `${helper_elements}[@data-navigation-index="${i}"]/span/span[2]`;
             },
+
+            empty_search_block_image,
+            empty_search_block_text,
         }
     }
 
@@ -144,8 +157,12 @@ class SearchPanelPage extends DefaultPage {
 
     getAreaRequestText() {
         const locator = this.locators.search_area_request_text;
-        this.page.waitForVisible(locator);
         return this.page.getText(locator);
+    }
+
+    getAreaRequestHTML() {
+        const locator = this.locators.search_area_request_text;
+        return this.page.getHTML(locator, false);
     }
 
 
@@ -223,6 +240,23 @@ class SearchPanelPage extends DefaultPage {
         } catch (err) {
             return false;
         }
+    }
+
+    hasFilterInInput() {
+        const locator = this.locators.search_filter;
+        return this.page.waitForVisible(locator);
+    }
+
+    getCountOfFilters() {
+        const locator = this.locators.search_filter;
+        return this.page.elements(locator).value.length;
+    }
+
+    hasEmptyPageBlocks() {
+        const locator_image = this.locators.empty_search_block_image;
+        const locator_text = this.locators.empty_search_block_text;
+
+        return this.page.waitForVisible(locator_image) && this.page.waitForVisible(locator_text);
     }
 }
 
