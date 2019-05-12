@@ -5,6 +5,7 @@ import search from '../../steps/search-panel';
 const user = process.env.LOGIN;
 const password = process.env.PASSWORD;
 
+const request = "some request";
 
 describe('test search field input', () => {
     before(() => {
@@ -16,7 +17,9 @@ describe('test search field input', () => {
 
 
     it('Ввести запрос в поле ввода, убедится, что он там появляется', () => {
-        search.fillSearchInput("some request"); // checking inside
+        search.fillSearchInput(request);
+        search.sendSearchRequest(request);
+        search.checkAreaRequestText(request);
     });
 
     after(() => {
