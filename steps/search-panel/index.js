@@ -10,26 +10,26 @@ class SearchPanelSteps extends DefaultSteps {
         super(search);
 
         this.filterPositions = {
-            "unread": 0,
-            "flag": 1,
-            "attachment": 2,
-            "orders": 8,
+            'unread': 0,
+            'flag': 1,
+            'attachment': 2,
+            'orders': 8,
         };
 
         this.filterNames = {
-            "unread": "непрочитанные",
-            "flag": "с флагом",
-            "attachment": "с вложениями",
+            'unread': 'непрочитанные',
+            'flag': 'с флагом',
+            'attachment': 'с вложениями',
         };
 
         this.searchAreaPositions = {
-            "from": 1,
-            "to": 2,
-            "theme": 3,
+            'from': 1,
+            'to': 2,
+            'theme': 3,
         };
 
         this.filterSecondPositions = {
-            "finance": 2,
+            'finance': 2,
         }
     }
 
@@ -38,7 +38,7 @@ class SearchPanelSteps extends DefaultSteps {
      */
     clickOnSearchField() {
         this.page.clickOnSearchField();
-        assert.ok(this.page.isSearchInputExpanded(), `search input should be expanded`);
+        assert.ok(this.page.isSearchInputExpanded(), 'search input should be expanded');
     }
 
     /**
@@ -85,13 +85,13 @@ class SearchPanelSteps extends DefaultSteps {
      */
     sendSearchRequest(request) {
         this.page.clickOnSearchButton();
-        this.page.waitForUrl(`https://octavius.mail.ru/search/?q_query=${encodeURIComponent(request)}`);
+        this.page.waitForUrl('https://octavius.mail.ru/search/?q_query=${encodeURIComponent(request)}');
     }
 
     sendSearchRequestByEnter(request) {
         this.page.pressEnter();
         if (request !== undefined) {
-            this.page.waitForUrl(`https://octavius.mail.ru/search/?q_query=${encodeURIComponent(request)}`);
+            this.page.waitForUrl('https://octavius.mail.ru/search/?q_query=${encodeURIComponent(request)}');
         }
     }
 
@@ -165,7 +165,7 @@ class SearchPanelSteps extends DefaultSteps {
         assert.strictEqual(this.page.getCountOfFilters(), 1);
     }
 
-    selectSecondFilter(filter = "finance") {
+    selectSecondFilter(filter = 'finance') {
         this.page.clickOnSearchAreaButton();
         this.page.clickOnAreaListElement(this.filterSecondPositions[filter]);
     }

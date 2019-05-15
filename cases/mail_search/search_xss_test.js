@@ -5,8 +5,8 @@ import search from '../../steps/search-panel';
 const user = process.env.LOGIN;
 const password = process.env.PASSWORD;
 
-const request = `<script>alert("xss");</script>`;
-const filtered_request = `&lt;script&gt;alert("xss");&lt;/script&gt;`;
+const request = '<script>alert("xss");</script>';
+const filtered_request = '&lt;script&gt;alert("xss");&lt;/script&gt;';
 
 describe('test xss', () => {
     before(() => {

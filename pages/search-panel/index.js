@@ -7,7 +7,7 @@ class SearchPanelPage extends DefaultPage {
 
     get locators() {
         // блок с поиском
-        const container = `.search-panel`;
+        const container = '.search-panel';
 
         // поле поиска
         const container_column = `${container} .search-panel__column`;
@@ -22,7 +22,7 @@ class SearchPanelPage extends DefaultPage {
         const search_input_container = `${container_column_active} .search-panel__layer`;
 
         // фильтры поиска
-        const search_filter = `//*[contains(@class, "search-panel__layer")]/div/div[1]/span[1]/span[span]`;
+        const search_filter = '//*[contains(@class, "search-panel__layer")]/div/div[1]/span[1]/span[span]';
 
         // поле поискового запроса
         const search_input = `${search_input_container} input`;
@@ -31,24 +31,24 @@ class SearchPanelPage extends DefaultPage {
         const search_button = `${search_input_container} div span:nth-child(3)`;
 
         // блок "раздела" поиска: "От", "Кому" итд...
-        const search_area_button = `//*[contains(@class, "search-panel__layer")]//span[following-sibling::span]/div`;
+        const search_area_button = '//*[contains(@class, "search-panel__layer")]//span[following-sibling::span]/div';
 
         // блок "раздела" поиска: текст запроса в сером прямоугольнике
-        const search_area_request_text = `//*[contains(@class, "search-panel__layer")]//span[following-sibling::span]/span/span/span[2]`;
+        const search_area_request_text = '//*[contains(@class, "search-panel__layer")]//span[following-sibling::span]/span/span/span[2]';
 
         // список "раздела" поиска: "От", "Кому" итд... (в нем spanы с названиями разделов с эвенами [0] от [1] кому [2] тема)
-        const search_area_list = `//*[@class="tooltip"]/following-sibling::div[1]/div/span`;
+        const search_area_list = '//*[@class="tooltip"]/following-sibling::div[1]/div/span';
 
         // крестик!
-        const clear_button = `//*[contains(@class, "search-panel__layer")]//span[preceding-sibling::span[last()]/div][preceding-sibling::span[last()-1]]`;
+        const clear_button = '//*[contains(@class, "search-panel__layer")]//span[preceding-sibling::span[last()]/div][preceding-sibling::span[last()-1]]';
 
         // элементы выпадающего списка
-        const helper_elements = `//*[contains(@class, "r-list-item")]`;
+        const helper_elements = '//*[contains(@class, "r-list-item")]';
 
         // "Сбросить поиск"
-        const drop_search_button = `//*[contains(@class, "search-panel__left-col")]//*[contains(@class, " button2")]`;
+        const drop_search_button = '//*[contains(@class, "search-panel__left-col")]//*[contains(@class, " button2")]';
 
-        const empty_search_block = `.octopus`;
+        const empty_search_block = '.octopus';
 
         const empty_search_block_image = `${empty_search_block} .octopus__icon`;
 
@@ -209,7 +209,7 @@ class SearchPanelPage extends DefaultPage {
      * @returns {boolean}
      */
     isSearchInputExpanded() {
-        return super.hasClass(this.locators.container_column, `search-panel__column_active`);
+        return super.hasClass(this.locators.container_column, 'search-panel__column_active');
     }
 
     /**

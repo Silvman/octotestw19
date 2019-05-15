@@ -9,8 +9,8 @@ class MainPage extends DefaultPage {
 		const container = '#mailbox-container';
 		return {
 			container,
-			login: container + ' input[name="login"]',
-			password: container + ' input[name="password"]',
+			login: `${container} input[name="login"]`,
+			password: `${container} input[name="password"]`,
 			button: '[type="submit"]'
 		}
 	}

@@ -6,7 +6,7 @@ class Layout extends DefaultPage {
 	}
 
 	get locators() {
-		const container = `.application`; 								// приложение
+		const container = '.application'; 								// приложение
 		const sideBar = `${container} .sidebar`; 						// сайдбар
 		const dropDown = `${sideBar} .settings .dropdown`; 				// блок отвечающий за кнопку настроек и соответствующий ей выпадающий список
 		const dropDownButton = `${dropDown} .button2`; 					// кнопка настроек
@@ -34,7 +34,7 @@ class Layout extends DefaultPage {
 		this.toggleDropdownButton();
 		this.page.waitForVisible(this.locators.dropDownList);
 		
-		const is3pane = this.hasClass(this.locators.paneCheckbox, `b-checkbox_checked`);
+		const is3pane = this.hasClass(this.locators.paneCheckbox, 'b-checkbox_checked');
 
 		switch (pane) {
 			case 2:

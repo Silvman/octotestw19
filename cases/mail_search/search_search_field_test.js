@@ -5,7 +5,7 @@ import search from '../../steps/search-panel';
 const user = process.env.LOGIN;
 const password = process.env.PASSWORD;
 
-const request = "some request";
+const request = 'some request';
 
 describe('test search field input', () => {
     before(() => {

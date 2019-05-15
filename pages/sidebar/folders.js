@@ -9,7 +9,7 @@ class FoldersPage extends DefaultPage {
 		const container = '[data-qa-id="sidebar"] [data-qa-id="folders"]';
 		return {
 			container,
-			folderByName: (folderName) => container + ` [data-qa-id="folder-name:name:${folderName}"]`
+			folderByName: (folderName) => `${container} [data-qa-id="folder-name:name:${folderName}"]`
 		}
 	}
 
